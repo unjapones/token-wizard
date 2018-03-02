@@ -138,12 +138,19 @@ export const VALIDATION_MESSAGES = {
   MULTIPLE_TIERS_START_TIME: 'Please enter a valid date not less than the end time of the previous tier',
   EDITED_END_TIME: 'Please enter a valid date later than start time and previous than start time of next tier',
   EDITED_START_TIME: 'Please enter a valid date later than now, less than end time and later than the end time of the previous tier',
-  RATE: 'Please enter a valid number greater than 0'
+  RATE: 'Please enter a valid number greater than 0',
+  MINCAP: 'Value must be positive and decimals should not exceed the amount of decimals specified'
 }
 
 //descriptions of input fields
 export const DESCRIPTION = {
-  TOKEN_TICKER: 'The five letter ticker for your token.'
+  TOKEN_TICKER: 'The five letter ticker for your token.',
+  CROWDSALE_SETUP_NAME: `Name of a tier, e.g. PrePreCrowdsale, PreCrowdsale, Crowdsale with bonus A, Crowdsale with bonus B, etc. We simplified that and will increment a number after each tier.`,
+  ALLOW_MODIFYING: `Pandora box feature. If it's enabled, a creator of the crowdsale can modify Start time, End time, Rate, Limit after publishing.`,
+  START_TIME: `Date and time when the tier starts. Can't be in the past from the current moment.`,
+  END_TIME: `Date and time when the tier ends. Can be only in the future.`,
+  RATE: `Exchange rate Ethereum to Tokens. If it's 100, then for 1 Ether you can buy 100 tokens`,
+  SUPPLY: `How many tokens will be sold on this tier. Cap of crowdsale equals to sum of supply of all tiers`
 }
 
 export const TEXT_FIELDS = {
