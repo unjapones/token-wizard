@@ -3,7 +3,7 @@ import '../../assets/stylesheets/application.css'
 import { WhitelistInputBlock } from '../Common/WhitelistInputBlock'
 import { defaultCompanyStartDate, defaultCompanyEndDate } from './utils'
 import { InputField } from '../Common/InputField'
-import { RadioInputField } from '../Common/RadioInputField'
+import { RadioInputFieldLegacy } from '../Common/RadioInputFieldLegacy'
 import { inject, observer } from 'mobx-react'
 import { VALIDATION_TYPES, VALIDATION_MESSAGES, TEXT_FIELDS, DESCRIPTION } from '../../utils/constants'
 import { BigNumberInput } from '../Common/BigNumberInput'
@@ -96,7 +96,7 @@ export class CrowdsaleBlock extends React.Component {
               onChange={e => this.updateTierStore(e.target.value, 'tier')}
               description={DESCRIPTION.CROWDSALE_SETUP_NAME}
             />
-            <RadioInputField
+            <RadioInputFieldLegacy
               extraClassName="right"
               title={ALLOWMODIFYING}
               items={[{ label: 'on', value: 'on' }, { label: 'off', value: 'off' }]}

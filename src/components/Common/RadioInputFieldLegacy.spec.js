@@ -1,5 +1,5 @@
 import React from 'react';
-import { RadioInputField } from './RadioInputField';
+import { RadioInputFieldLegacy } from './RadioInputFieldLegacy';
 import renderer from 'react-test-renderer';
 import Adapter from 'enzyme-adapter-react-15';
 import { configure, mount } from 'enzyme';
@@ -8,7 +8,7 @@ configure({ adapter: new Adapter() })
 
 test('Should render the component', () => {
   const component = renderer.create(
-    <RadioInputField
+    <RadioInputFieldLegacy
       title="Some Title"
       items={[{ label: 'Item 1', value: 'item-1' }, { label: 'Item 2', value: 'item-2' }]}
       selectedItem="item-1"
@@ -23,7 +23,7 @@ test('Should render the component', () => {
 
 test('Should render two inputs and check the first one', () => {
   const wrapper = mount(
-    <RadioInputField
+    <RadioInputFieldLegacy
       title="Some Title"
       items={[{ label: 'Item 1', value: 'item-1' }, { label: 'Item 2', value: 'item-2' }]}
       selectedItem="item-1"
@@ -46,7 +46,7 @@ test('The onChange callback is called when an item is selected', () => {
   const onChangeCallback = jest.fn()
 
   const wrapper = mount(
-    <RadioInputField
+    <RadioInputFieldLegacy
       title="Some Title"
       items={[{ label: 'Item 1', value: 'item-1' }, { label: 'Item 2', value: 'item-2' }]}
       selectedItem="item-1"
@@ -64,7 +64,7 @@ test('Should change the selected item when `selectedItem` changes', () => {
   const onChangeCallback = jest.fn()
 
   const wrapper = mount(
-    <RadioInputField
+    <RadioInputFieldLegacy
       title="Some Title"
       items={[{ label: 'Item 1', value: 'item-1' }, { label: 'Item 2', value: 'item-2' }]}
       selectedItem="item-1"

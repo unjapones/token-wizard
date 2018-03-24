@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { setExistingContractParams, getNetworkVersion, getNetWorkNameById } from "../../utils/blockchainHelpers";
 import { gweiToWei, weiToGwei } from "../../utils/utils";
 import { StepNavigation } from "../Common/StepNavigation";
-import { RadioInputField } from "../Common/RadioInputField";
+import { RadioInputFieldLegacy } from "../Common/RadioInputFieldLegacy";
 import { CrowdsaleBlock } from "./CrowdsaleBlock";
 import {
   NAVIGATION_STEPS,
@@ -366,7 +366,7 @@ export class stepThree extends React.Component {
             errorMessage={VALIDATION_MESSAGES.MINCAP}
             onValueUpdate={this.updateMinCap}
           />
-          <RadioInputField
+          <RadioInputFieldLegacy
             extraClassName="right"
             title={ENABLE_WHITELISTING}
             items={[{ label: 'yes', value: 'yes' }, { label: 'no', value: 'no' }]}

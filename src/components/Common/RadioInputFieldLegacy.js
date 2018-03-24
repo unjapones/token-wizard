@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../assets/stylesheets/application.css';
 
-export const RadioInputField = (props) => {
+export const RadioInputFieldLegacy = (props) => {
   const inputs = props.items
     .map((item, index) => (
       <label className="radio-inline" key={index}>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Web3 from 'web3'
 import '../../assets/stylesheets/application.css'
 import { InputField } from './InputField'
-import { RadioInputField } from './RadioInputField'
+import { RadioInputFieldLegacy } from './RadioInputFieldLegacy'
 import { TEXT_FIELDS, VALIDATION_TYPES } from '../../utils/constants'
 import update from 'immutability-helper'
 import ReservedTokensItem from './ReservedTokensItem'
@@ -185,7 +185,7 @@ export class ReservedTokensInputBlock extends Component {
               valid={this.state.validation.address.valid}
               errorMessage="The inserted address is invalid"
             />
-            <RadioInputField
+            <RadioInputFieldLegacy
               extraClassName="reserved-tokens-input-property reserved-tokens-input-property-middle"
               title={DIMENSION}
               items={[{ label: 'tokens', value: 'tokens' }, { label: 'percentage', value: 'percentage' }]}
