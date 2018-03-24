@@ -20,7 +20,7 @@ import { Loader } from '../Common/Loader'
 import { noGasPriceAvailable, warningOnMainnetAlert } from '../../utils/alerts'
 import { NumericInput } from '../Common/NumericInput'
 import update from 'immutability-helper'
-import { AddressInput } from '../Common/AddressInput'
+import { AddressInputLegacy } from '../Common/AddressInputLegacy'
 
 const { CROWDSALE_SETUP } = NAVIGATION_STEPS;
 const { VALID, INVALID } = VALIDATION_TYPES;
@@ -337,7 +337,7 @@ export class stepThree extends React.Component {
           <p className="title">Global settings</p>
         </div>
         <div className="input-block-container">
-          <AddressInput
+          <AddressInputLegacy
             side="left"
             title={WALLET_ADDRESS}
             address={this.state.walletAddress}

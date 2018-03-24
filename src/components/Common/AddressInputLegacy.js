@@ -5,7 +5,7 @@ import { InputField } from './InputField'
 
 const { INVALID, VALID } = VALIDATION_TYPES
 
-export class AddressInput extends Component {
+export class AddressInputLegacy extends Component {
   constructor (props) {
     super(props)
 

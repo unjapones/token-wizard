@@ -1,5 +1,5 @@
 import React from 'react'
-import { AddressInput } from './AddressInput'
+import { AddressInputLegacy } from './AddressInputLegacy'
 import { TEXT_FIELDS, VALIDATION_MESSAGES, VALIDATION_TYPES } from '../../utils/constants'
 import renderer from 'react-test-renderer'
 import Adapter from 'enzyme-adapter-react-15'
@@ -7,7 +7,7 @@ import { configure, mount } from 'enzyme'
 
 configure({ adapter: new Adapter() })
 
-describe('AddressInput', () => {
+describe('AddressInputLegacy', () => {
   it('Should render the component', () => {
     const state = {
       walletAddress: '0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1',
@@ -15,7 +15,7 @@ describe('AddressInput', () => {
       valid: VALIDATION_TYPES.VALID,
     }
     const component = renderer.create(
-      <AddressInput
+      <AddressInputLegacy
         side="left"
         title={TEXT_FIELDS.WALLET_ADDRESS}
         address={state.walletAddress}
@@ -39,7 +39,7 @@ describe('AddressInput', () => {
       valid: VALIDATION_TYPES.VALID,
     }
     const wrapper = mount(
-      <AddressInput
+      <AddressInputLegacy
         side="left"
         title={TEXT_FIELDS.WALLET_ADDRESS}
         address={state.walletAddress}
@@ -71,7 +71,7 @@ describe('AddressInput', () => {
       valid: VALIDATION_TYPES.VALID,
     }
     const wrapper = mount(
-      <AddressInput
+      <AddressInputLegacy
         side="left"
         title={TEXT_FIELDS.WALLET_ADDRESS}
         address={state.walletAddress}
