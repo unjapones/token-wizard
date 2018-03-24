@@ -1,3 +1,4 @@
+import Web3 from 'web3'
 import { VALIDATION_MESSAGES } from './constants'
 
 export const validators = (type, value) => {
@@ -5,6 +6,7 @@ export const validators = (type, value) => {
     name: value && typeof value === 'string' && 1 <= value.length && value.length <= 30,
     ticker: /^[a-zA-Z0-9]{1,5}$/.test(value),
     decimals: (value === undefined || value === '') || (/^[0-9]+$/.test(value) && 0 <= value && value <= 18),
+    address: Web3.utils.isAddress(value),
   }[type] || false
 }
 
@@ -23,4 +25,7 @@ export const validateDecimals = (value) => {
   return isValid ? undefined : VALIDATION_MESSAGES.DECIMALS
 }
 
-
+export const validateAddress = (value) => {
+  const isValid = validators('address', value)
+  return isValid ? undefined : VALIDATION_MESSAGES.WALLET_ADDRESS
+}
