@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Web3 from 'web3'
 import '../../assets/stylesheets/application.css'
-import { InputField } from './InputField'
-import { RadioInputFieldLegacy } from './RadioInputFieldLegacy'
+import { AddressInput } from './AddressInput'
+import { RadioInputField } from './RadioInputField'
 import { TEXT_FIELDS, VALIDATION_TYPES } from '../../utils/constants'
 import update from 'immutability-helper'
 import ReservedTokensItem from './ReservedTokensItem'
@@ -170,24 +170,30 @@ export class ReservedTokensInputBlock extends Component {
       cursor: 'pointer'
     }
 
+    const errorStyle = {
+      color: 'red',
+      fontWeight: 'bold',
+      fontSize: '12px',
+      width: '100%',
+      height: '10px',
+    }
+
     return (
       <div className="reserved-tokens-container">
         <div className="reserved-tokens-input-container">
           <div className="reserved-tokens-input-container-inner">
-            <InputField
-              side="reserved-tokens-input-property reserved-tokens-input-property-left"
+            <AddressInput
               type="text"
-              title={ADDRESS}
-              value={this.state.addr}
-              onChange={e => this.handleAddressChange(e.target.value)}
+              side="reserved-tokens-input-property reserved-tokens-input-property-left"
+              label={ADDRESS}
+              name="address"
               description="Address where to send reserved tokens."
-              pristine={this.state.validation.address.pristine}
-              valid={this.state.validation.address.valid}
-              errorMessage="The inserted address is invalid"
+              errorStyle={errorStyle}
             />
-            <RadioInputFieldLegacy
+            <RadioInputField
               extraClassName="reserved-tokens-input-property reserved-tokens-input-property-middle"
               title={DIMENSION}
+              name="dim"
               items={[{ label: 'tokens', value: 'tokens' }, { label: 'percentage', value: 'percentage' }]}
               selectedItem={this.state.dim}
               onChange={e => this.updateReservedTokenInput(e.target.value, 'dim')}
