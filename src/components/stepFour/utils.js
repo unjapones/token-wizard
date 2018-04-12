@@ -568,6 +568,8 @@ export const setReservedTokensListMultiple = () => {
   return [() => {
     const abi = contractStore.token.abi.slice()
     const addr = contractStore.token.addr
+    const reservedTokens = reservedTokenStore.tokens
+    const decimals = tokenStore.decimals
 
     console.log('###setReservedTokensListMultiple:###')
 
@@ -580,44 +582,10 @@ export const setReservedTokensListMultiple = () => {
           return Promise.reject('no contract available')
         }
 
-        let map = {}
-        let addrs = []
-        let inTokens = []
-        let inPercentageUnit = []
-        let inPercentageDecimals = []
+        const { addrs, inTokens, inPercentageUnit, inPercentageDecimals } = buildReservedTokensArgs(reservedTokens, decimals)
 
-        const reservedTokens = reservedTokenStore.tokens
-
-        for (let i = 0; i < reservedTokens.length; i++) {
-          if (!reservedTokens[i].deleted) {
-            const val = reservedTokens[i].val
-            const addr = reservedTokens[i].addr
-            const obj = map[addr] ? map[addr] : {}
-
-            if (reservedTokens[i].dim === 'tokens') {
-              obj.inTokens = val * 10 ** tokenStore.decimals
-            } else {
-              obj.inPercentageDecimals = countDecimalPlaces(val)
-              obj.inPercentageUnit = val * 10 ** obj.inPercentageDecimals
-            }
-            map[addr] = obj
-          }
-        }
-
-        let keys = Object.keys(map)
-
-        for (let i = 0; i < keys.length; i++) {
-          let key = keys[i]
-          let obj = map[key]
-
-          addrs.push(key)
-          inTokens.push(obj.inTokens ? toFixed(obj.inTokens.toString()) : 0)
-          inPercentageUnit.push(obj.inPercentageUnit ? obj.inPercentageUnit : 0)
-          inPercentageDecimals.push(obj.inPercentageDecimals ? obj.inPercentageDecimals : 0)
-        }
-
-        if (addrs.length === 0 && inTokens.length === 0 && inPercentageUnit.length === 0) {
-          if (inPercentageDecimals.length === 0) return Promise.resolve()
+        if (addrs.length === 0 && inTokens.length === 0 && inPercentageUnit.length === 0 && inPercentageDecimals.length === 0) {
+          return Promise.resolve()
         }
 
         const opts = { gasPrice: generalStore.gasPrice }
@@ -632,6 +600,42 @@ export const setReservedTokensListMultiple = () => {
       })
       .then(() => deploymentStore.setAsSuccessful('setReservedTokens'))
   }]
+}
+
+/**
+ * Given a list of reserved tokens and the token decimals, return the arguments that can be used with the
+ * `setReservedTokensListMultiple` contract method.
+ */
+export function buildReservedTokensArgs(reservedTokens, decimals) {
+  const map = {}
+  for (let i = 0; i < reservedTokens.length; i++) {
+    const val = reservedTokens[i].val
+    const addr = reservedTokens[i].addr
+    map[addr] = map[addr] || {}
+
+    if (reservedTokens[i].dim === 'tokens') {
+      map[addr].inTokens = val * 10 ** decimals
+    } else {
+      map[addr].inPercentageDecimals = countDecimalPlaces(val)
+      map[addr].inPercentageUnit = val * 10 ** map[addr].inPercentageDecimals
+    }
+  }
+
+  const addrs = []
+  const inTokens = []
+  const inPercentageUnit = []
+  const inPercentageDecimals = []
+
+  Object.keys(map).forEach((key, i) => {
+    const item = map[key]
+
+    addrs.push(key)
+    inTokens.push(item.inTokens ? toFixed(item.inTokens.toString()) : 0)
+    inPercentageUnit.push(item.inPercentageUnit ? item.inPercentageUnit : 0)
+    inPercentageDecimals.push(item.inPercentageDecimals ? item.inPercentageDecimals : 0)
+  })
+
+  return { addrs, inTokens, inPercentageUnit, inPercentageDecimals }
 }
 
 export const transferOwnership = () => {
