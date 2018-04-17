@@ -144,3 +144,11 @@ export const acceptPositiveIntegerOnly = (value) => {
 
   return String(value).match(/^(\d*)/)[1]
 }
+
+export const splitInChunks = (chunkSize, array) => {
+  if (array.length <= chunkSize) {
+    return [array]
+  }
+
+  return [array.slice(0, chunkSize)].concat(splitInChunks(chunkSize, array.slice(chunkSize)))
+}

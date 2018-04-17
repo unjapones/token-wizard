@@ -8,8 +8,8 @@ import {
   sendTXToContract
 } from '../../utils/blockchainHelpers'
 import { noContractAlert, noContractDataAlert } from '../../utils/alerts'
-import { countDecimalPlaces, toFixed } from '../../utils/utils'
-import { DOWNLOAD_NAME } from '../../utils/constants'
+import { countDecimalPlaces, splitInChunks, toFixed } from '../../utils/utils'
+import { DOWNLOAD_NAME, RESERVE_TOKENS_CHUNK_SIZE } from '../../utils/constants'
 import { isObservableArray } from 'mobx'
 import {
   contractStore,
@@ -588,15 +588,28 @@ export const setReservedTokensListMultiple = () => {
           return Promise.resolve()
         }
 
-        const opts = { gasPrice: generalStore.gasPrice }
-        const method = tokenContract.methods
-          .setReservedTokensListMultiple(addrs, inTokens, inPercentageUnit, inPercentageDecimals)
+        const addrsChunks = splitInChunks(RESERVE_TOKENS_CHUNK_SIZE, addrs)
+        const inTokensChunks = splitInChunks(RESERVE_TOKENS_CHUNK_SIZE, inTokens)
+        const inPercentageUnitChunks = splitInChunks(RESERVE_TOKENS_CHUNK_SIZE, inPercentageUnit)
+        const inPercentageDecimalsChunks = splitInChunks(RESERVE_TOKENS_CHUNK_SIZE, inPercentageDecimals)
 
-        return method.estimateGas(opts)
-          .then(estimatedGas => {
-            opts.gasLimit = calculateGasLimit(estimatedGas)
-            return sendTXToContract(method.send(opts))
+        return addrsChunks.reduce((promise, addrsChunk, index) => {
+          return promise.then(() => {
+            const inTokensChunk = inTokensChunks[index]
+            const inPercentageUnitChunk = inPercentageUnitChunks[index]
+            const inPercentageDecimalsChunk = inPercentageDecimalsChunks[index]
+
+            const opts = { gasPrice: generalStore.gasPrice }
+            const method = tokenContract.methods
+              .setReservedTokensListMultiple(addrsChunk, inTokensChunk, inPercentageUnitChunk, inPercentageDecimalsChunk)
+
+            return method.estimateGas(opts)
+              .then(estimatedGas => {
+                opts.gasLimit = calculateGasLimit(estimatedGas)
+                return sendTXToContract(method.send(opts))
+              })
           })
+        }, Promise.resolve())
       })
       .then(() => deploymentStore.setAsSuccessful('setReservedTokens'))
   }]

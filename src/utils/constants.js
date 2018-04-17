@@ -408,3 +408,5 @@ export const TX_STEP_DESCRIPTION = {
   setReleaseAgent: "Register Token release addresses",
   transferOwnership: "Transfer ownership to wallet address"
 }
+
+export const RESERVE_TOKENS_CHUNK_SIZE = 40
