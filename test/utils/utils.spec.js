@@ -195,7 +195,7 @@ describe('objectKeysToLowerCase', () => {
     const collectionToLowercase = objectKeysToLowerCase(collection)
 
     // Then
-    expect(JSON.stringify(collectionToLowercase)).toBe(JSON.stringify(expectedResult))
+    expect(collectionToLowercase).toEqual(expectedResult)
   })
 })
 
