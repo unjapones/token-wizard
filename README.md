@@ -33,7 +33,7 @@ __Deploying on POA's Sokol or Main network is much faster then using Ethereum's 
 
  POA Main Network RPC URL: https://core.poa.network
 
- For a guide on how to connect to the POA network using MetaMask see [here](https://github.com/poanetwork/token-wizard/wiki/Connecting-to-POA-Networks).
+ For a guide on how to connect to the POA network using a web browser and a Wallet plugin (i.e. Nifty Wallet, Metamask) see [here](https://github.com/poanetwork/token-wizard/wiki/Connecting-to-POA-Networks).
 
 ## Token Wizard DApp Wiki
 - [Introduction](https://github.com/poanetwork/token-wizard/wiki/Token-Wizard-Introduction)
